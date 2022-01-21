@@ -37,6 +37,7 @@ pipeline{
                 script{
 
                     dir('kubernetes/') {
+			      sh 'helm plugin install https://github.com/datreeio/helm-datree'
                         
                               sh 'helm datree test myapp/'
                        
