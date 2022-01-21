@@ -31,6 +31,19 @@ pipeline{
                 sh 'mvn verify -DskipUnitTests'
             }
         }
+		
+	stage('indentifying misconfigs using datree in helm charts'){
+            steps{
+                script{
+
+                    dir('kubernetes/') {
+                        
+                              sh 'helm datree test myapp/'
+                       
+                    }
+                }
+            }
+        }	
     stage("pushing the helm charts to nexus"){
             steps{
                 script{
