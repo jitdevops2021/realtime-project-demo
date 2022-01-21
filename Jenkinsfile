@@ -8,7 +8,7 @@ pipeline{
         stage("Sonar qube quality check"){
             agent {
                 docker {
-                    image 'openjdk:11'
+                    image 'maven:3.8.1-adoptopenjdk-11'
                     
                 }
             }
