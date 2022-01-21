@@ -1,16 +1,23 @@
 pipeline{
-    agent any 
-    environment{
-        VERSION = "${env.BUILD_ID}"
-    }
+    agent any
+    
+    options {
+     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '2', daysToKeepStr: '1', numToKeepStr: '2')
+          }
     stages{
-        stage('Example Build') {
-            agent { docker 'maven:3-alpine' } 
-            steps {
-                echo 'Hello, Maven'
-                sh 'mvn --version'
-                sh 'mvn clean package'
+        stage("Sonar qube quality check"){
+            agent {
+                docker {
+                    image 'openjdk:11'
+                    
+                }
             }
+            steps{
+               sh 'mvn clean install'
+                
+            }
+            
         }
     }
-}
+}    
+		
