@@ -38,7 +38,7 @@ pipeline{
 
                     dir('kubernetes/') {
                         
-                              sh 'helm datree test myapp/'
+                              sh 'helm version'
                        
                     }
                 }
