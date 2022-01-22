@@ -31,7 +31,11 @@ pipeline{
                 sh 'mvn verify -DskipUnitTests'
             }
         }
-		
+	stage('build docker image from file'){
+            steps{
+                sh 'docker image build -t swap007.azurecr.io/realtime-project-demo:${BUILD_NUMBER} .'
+            }
+        }	
 	stage('indentifying misconfigs using datree in helm charts'){
             steps{
                 script{
@@ -60,6 +64,7 @@ pipeline{
                 }
             }
         }
-		
+	
+	
     }
 }    
