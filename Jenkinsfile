@@ -74,6 +74,19 @@ pipeline{
                 }
             }
         }
+		
+	stage('Deploying application on k8s cluster') {
+            steps {
+               script{
+                   withCredentials([kubeconfigFile(credentialsId: 'kubernetes-config', variable: 'KUBECONFIG')]) {
+                        dir('kubernetes/') {
+                          sh 'helm upgrade --install --set image.repository="swap007.azurecr.io/realtime-project-demo" --set image.tag="${BUILD_NUMBER}" myjavaapp myapp/ ' 
+                        }
+                    }
+               }
+            }
+        }
+	
 	
 	
     }
