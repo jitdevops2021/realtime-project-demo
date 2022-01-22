@@ -35,7 +35,17 @@ pipeline{
             steps{
                 sh 'docker image build -t swap007.azurecr.io/realtime-project-demo:${BUILD_NUMBER} .'
             }
+        }
+		
+    stage("Login to the azure acr and push  the docker image to acr registry"){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'azure-acr-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USER')]) {
+				sh 'docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} swap007.azurecr.io'
+				sh 'docker image push swap007.azurecr.io/realtime-project-demo:${BUILD_NUMBER}'
+				}
+            }
         }	
+		
 	stage('indentifying misconfigs using datree in helm charts'){
             steps{
                 script{
