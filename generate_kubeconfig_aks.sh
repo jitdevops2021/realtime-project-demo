@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -x -o errexit -o pipefail
-az login --service-principal --username SP_APP_ID --password SP_PASSWD --tenant TENANT_ID
+az login --service-principal --username AZURE_CLIENT_ID --password AZURE_CLIENT_SECRET --tenant AZURE_TENANT_ID
 # generate kubeconfig
 echo "Generating kubeconfig for ${eks_cluster_name}"
 az aks get-credentials \
