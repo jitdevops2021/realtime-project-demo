@@ -4,9 +4,9 @@ set -x -o errexit -o pipefail
 
 # generate kubeconfig
 echo "Generating kubeconfig for ${eks_cluster_name}"
-aws eks update-kubeconfig \
+az aks get-credentials \
     --name "${eks_cluster_name}" \
-    --region "${aws_region}" \
-    ----file -f "${KUBECONFIG}"
+    --resource-group "${aws_region}" \
+    --file -f "${KUBECONFIG}"
 
 echo "KUBECONFIG saved to ${KUBECONFIG}"
